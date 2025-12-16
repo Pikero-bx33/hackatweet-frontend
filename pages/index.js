@@ -1,7 +1,16 @@
-import Login from '../components/login/Login'
+import Login from '../components/login/Login';
+import Head from 'next/head';
 
 function Index() {
-  return <Login />;
+  return (
+    <>
+      <Head>
+        <title>Login Page</title>
+      </Head>
+      <Login />
+    </>
+
+  )
 }
 
 export default Index;

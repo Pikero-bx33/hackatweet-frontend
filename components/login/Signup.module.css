@@ -1,0 +1,13 @@
+.signupBtn {
+  background-color: #3F9BEF;
+  font-size: 14px;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 60px;
+  cursor: pointer;
+}
+
+.signupBtn:hover {
+  opacity: 0.8;
+}

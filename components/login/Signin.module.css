@@ -1,0 +1,13 @@
+.signinBtn {
+  background-color: #0A1216;
+  font-size: 14px;
+  color: #3F9BEF;
+  border: 1px solid #ffffff;
+  border-radius: 20px;
+  padding: 10px 60px;
+  cursor: pointer;
+}
+
+.signinBtn:hover {
+  opacity: 0.8;
+}
