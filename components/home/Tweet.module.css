@@ -1,0 +1,50 @@
+.tweetContainer {
+  width: 100%;
+  margin: 0 auto;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
+
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.tweetInput {
+  width: 80%;
+  background-color: transparent;
+  border: none;
+  padding: 30px;
+  font-size: 25px;
+  color: rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+
+}
+
+.counterBtn {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 90%;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.charCounter {
+  font-size: 15px;
+}
+
+.tweetBtn {
+  color: #ffffff;
+  padding: 10px 40px;
+  background-color: #3F9BEF;
+  font-size: 18px;
+  border: none;
+  border-radius: 20px;
+  margin-left: 30px;
+  cursor: pointer;
+}
+
+.tweetBtn:hover {
+  opacity: 0.8;
+}

@@ -1,0 +1,45 @@
+.lastTweetsContainer {
+  margin-top: 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.userInfo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.userImage {
+  border-radius: 50%;
+}
+
+.username {
+  margin: 0px 20px;
+  font-weight: bold;
+}
+
+.userInfo small {
+  margin-right: 10px;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.time {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.tweetContent {
+  margin-bottom: 20px;
+}
+
+.tweetContent strong {
+  color: #3F9BEF;
+}
+
+.heartContainer {
+  margin-bottom: 40px;
+}
+
+.heartCount {
+  margin-left: 10px;
+}
