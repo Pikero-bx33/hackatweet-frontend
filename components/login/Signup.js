@@ -1,11 +1,10 @@
 import styles from './Signup.module.css'
 
-export default function Signup() {
+export default function Signup({ onClick }) {
   return (
     <button
       className={styles.signupBtn}
-    //onClick qui appelle modale Sign up
-    //onClick={() => register() }
+      onClick={onClick}
     >Sign up</button>
   )
 }

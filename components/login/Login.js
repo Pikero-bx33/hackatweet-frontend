@@ -50,6 +50,14 @@ export default function Login() {
       });
   };
 
+  function showSignupModal() {
+    setIsSignupModalVisible(!isSignupModalVisible)
+  }
+
+  function showSigninModal() {
+    setIsSigninModalVisible(!isSigninModalVisible)
+  }
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.leftSection}>
@@ -59,17 +67,25 @@ export default function Login() {
         <FontAwesomeIcon icon={faTwitter} style={{ color: '#ffffff' }} className={styles.twitterIcon} />
         <h1 className={styles.mainTitle}>See what's <br />happening</h1>
         <h2 className={styles.secondTitle}>Join Hackatweet today.</h2>
-        <Signup />
+        <Signup
+          onClick={showSignupModal}
+        />
         <p className={styles.haveAccount}>Already have an account?</p>
-        <Signin />
+        <Signin
+          onClick={showSigninModal}
+        />
 
 
         {/* Modale */}
         <div className={styles.modalContainer}>
           {/* SIGN UP */}
-          <div className={styles.regiterContainer}>
+          {isSignupModalVisible && (<div className={styles.regiterContainer}>
             <div className={styles.faXmarkIcon}>
-              <FontAwesomeIcon icon={faXmark} style={{ color: "#FFFFFF" }} />
+              <FontAwesomeIcon
+                icon={faXmark}
+                style={{ color: "#FFFFFF", cursor: "pointer" }}
+                onClick={showSignupModal}
+              />
             </div>
             <div className={styles.registerSection}>
               <FontAwesomeIcon icon={faTwitter} style={{ color: '#ffffff' }} className={styles.twitterIcon} />
@@ -100,12 +116,16 @@ export default function Login() {
                 onClick={() => handleRegister()}
               >Sign up</button>
             </div>
-          </div>
+          </div>)}
 
           {/* SIGN IN */}
-          <div className={styles.regiterContainer}>
+          {isSigninModalVisible && (<div className={styles.regiterContainer}>
             <div className={styles.faXmarkIcon}>
-              <FontAwesomeIcon icon={faXmark} style={{ color: "#FFFFFF" }} />
+              <FontAwesomeIcon
+                icon={faXmark}
+                style={{ color: "#FFFFFF", cursor: "pointer" }}
+                onClick={showSigninModal}
+              />
             </div>
             <div className={styles.registerSection}>
               <FontAwesomeIcon icon={faTwitter} style={{ color: '#ffffff' }} className={styles.twitterIcon} />
@@ -125,11 +145,11 @@ export default function Login() {
                 onChange={(e) => setSigninPassword(e.target.value)}
               />
               <button
-                className={styles.signInBtn}
+                className={styles.signinBtn}
                 onChange={() => handleConnection()}
               >Sign in</button>
             </div>
-          </div>
+          </div>)}
         </div>
 
       </div>

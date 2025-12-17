@@ -102,3 +102,22 @@
   padding: 10px 60px;
   cursor: pointer;
 }
+
+.signupBtn:hover {
+  opacity: 0.8;
+}
+
+.signinBtn {
+  background-color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  color: #15202B;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 60px;
+  cursor: pointer;
+}
+
+.signinBtn:hover {
+  opacity: 0.8;
+}
