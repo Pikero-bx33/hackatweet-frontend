@@ -68,6 +68,12 @@
   margin-bottom: 30px;
 }
 
+.tweetList {
+  height: calc(100vh - 120px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
 /* RIGHT SECTION */
 
 .rightSection {
