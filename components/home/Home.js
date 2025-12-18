@@ -11,6 +11,16 @@ import Image from 'next/image';
 function Home() {
   const [postsData, setPostsData] = useState([])
 
+  const fetchPosts = async () => {
+    const res = await fetch('http://localhost:3000/posts/all');
+    const data = await res.json();
+    setPostsData(data.posts);
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   useEffect(() => {
     fetch('http://localhost:3000/posts/all')
       .then(response => response.json())
@@ -42,7 +52,7 @@ function Home() {
 
       <div className={styles.middleSection}>
         <h2 className={styles.homeTitle}>Home</h2>
-        <Tweet />
+        <Tweet updateNewTweet={fetchPosts} />
         <div className={styles.tweetList}>
           {postsElement}
         </div>
