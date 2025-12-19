@@ -10,10 +10,12 @@ import Image from 'next/image';
 
 function Home() {
   const [postsData, setPostsData] = useState([])
+  console.log(postsData);
 
   const fetchPosts = async () => {
     const res = await fetch('http://localhost:3000/posts/all');
     const data = await res.json();
+
     setPostsData(data.posts);
   };
 
@@ -21,17 +23,13 @@ function Home() {
     fetchPosts();
   }, []);
 
-  useEffect(() => {
-    fetch('http://localhost:3000/posts/all')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data.posts);
-        setPostsData(data.posts)
-      });
-  }, []);
 
   const postsElement = postsData.map((data, i) => {
-    return <LastTweets key={i} {...data} />
+    return (<LastTweets
+      key={i}
+      {...data}
+      onPostDeleted={fetchPosts}
+    />)
   })
 
   return (
@@ -52,7 +50,7 @@ function Home() {
 
       <div className={styles.middleSection}>
         <h2 className={styles.homeTitle}>Home</h2>
-        <Tweet updateNewTweet={fetchPosts} />
+        <Tweet onNewTweet={fetchPosts} />
         <div className={styles.tweetList}>
           {postsElement}
         </div>

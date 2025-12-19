@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react'
 import styles from './Tweet.module.css'
 
-export default function Tweet() {
+export default function Tweet({ onNewTweet }) {
   const [inputData, setInputData] = useState("");
 
   function handleInput(e) {
     setInputData(e.target.value)
   }
 
-  async function handleTweet({ updateNewTweet }) {
+  async function handleTweet() {
     if (!inputData.trim()) return;
-    if (!user.token) return; // depuis reducer
+    /* if (!user.token) return;  */ // depuis reducer
 
     const response = await fetch('http://localhost:3000/posts', {
       method: 'POST',
@@ -25,7 +25,7 @@ export default function Tweet() {
 
     if (data.result) {
       setInputData('');
-      updateNewTweet();
+      onNewTweet?.();
     }
   }
 

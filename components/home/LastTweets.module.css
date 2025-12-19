@@ -32,14 +32,24 @@
   margin-bottom: 20px;
 }
 
-.tweetContent strong {
-  color: #3F9BEF;
+.heartContainer {
+  margin-right: 10px;
 }
 
-.heartContainer {
-  margin-bottom: 40px;
+.trashIcon {
+  cursor: pointer;
+}
+
+.heartIcon {
+  cursor: pointer;
 }
 
 .heartCount {
   margin-left: 10px;
+}
+
+.iconContainer {
+  display: flex;
+
+  margin-bottom: 40px;
 }
