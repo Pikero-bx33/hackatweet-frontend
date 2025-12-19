@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from './LastTweets.module.css';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -5,6 +6,7 @@ import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function LastTweets(props) {
+  const [isLiked, setIsLiked] = useState(props.isLiking);
 
   function timeAgo(date) {
     const now = new Date();
@@ -35,6 +37,27 @@ export default function LastTweets(props) {
     props.onPostDeleted?.();
   };
 
+  const handleClickLike = async () => {
+    const newLikeState = !isLiked;
+    setIsLiked(newLikeState);
+
+    const res = await fetch('http://localhost:3000/posts', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: 'x',
+        postId: props._id,
+        isLiked: newLikeState,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!data.result) {
+      setIsLiked(!newLikeState);
+    }
+  };
+
   return (
     <div className={styles.lastTweetsContainer}>
       <div className={styles.userInfo}>
@@ -54,8 +77,9 @@ export default function LastTweets(props) {
         <div className={styles.heartContainer}>
           <FontAwesomeIcon
             icon={faHeart}
-            style={{ color: '#ffffff' }}
+            style={{ color: isLiked ? 'red' : '#ffffff' }}
             className={styles.heartIcon}
+            onClick={handleClickLike}
           />
           <span className={styles.heartCount}>0</span>
         </div>

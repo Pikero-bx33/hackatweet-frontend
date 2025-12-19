@@ -13,10 +13,15 @@ function Home() {
   console.log(postsData);
 
   const fetchPosts = async () => {
-    const res = await fetch('http://localhost:3000/posts/all');
+    const res = await fetch('http://localhost:3000/posts/all', {
+      method: 'GET',
+      headers: {
+        'token': 'x',
+      }
+    });
     const data = await res.json();
 
-    setPostsData(data.posts);
+    setPostsData(data.posts || []);
   };
 
   useEffect(() => {
