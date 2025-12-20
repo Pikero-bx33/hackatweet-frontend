@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
 import styles from './Tweet.module.css'
+import { useSelector } from 'react-redux';
 
 export default function Tweet({ onNewTweet }) {
   const [inputData, setInputData] = useState("");
+
+  const user = useSelector((state) => state.user.value);
 
   function handleInput(e) {
     setInputData(e.target.value)
@@ -16,7 +19,7 @@ export default function Tweet({ onNewTweet }) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        token: 'xxxxxx',
+        token: user.token,
         content: inputData,
       }),
     });

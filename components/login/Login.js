@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { login } from '../../reducers/user'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -8,6 +10,8 @@ import Signin from './Signin';
 import styles from './Login.module.css';
 
 export default function Login() {
+  const dispatch = useDispatch();
+
   const [signupFirstname, setSignupFirstname] = useState("");
   const [signupUsername, setSignupUsername] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
@@ -22,11 +26,21 @@ export default function Login() {
     fetch('http://localhost:3000/users/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstname: signupFirstname, username: signupUsername, password: signupPassword }),
+      body: JSON.stringify({
+        fullName: signupFirstname,
+        username: signupUsername,
+        password: signupPassword
+      }),
     }).then(response => response.json())
       .then(data => {
+        console.log(data);
+
         if (data.result) {
-          //dispatch(login({ username: signupUsername, token: data.token }));
+          dispatch(login({
+            username: data.userId.username,
+            firstname: data.userId.fullName,
+            token: data.userId.token
+          }));
           setSignupFirstname('');
           setSignupUsername('');
           setSignupPassword('');
@@ -43,9 +57,13 @@ export default function Login() {
     }).then(response => response.json())
       .then(data => {
         if (data.result) {
-          //dispatch(login({ username: signinUsername, token: data.token }));
-          setSigninUsername('');
-          setSigninPassword('');
+          dispatch(login({
+            username: data.userId.username,
+            firstname: data.userId.fullName,
+            token: data.userId.token
+          }));
+          setSignupUsername('');
+          setSignupPassword('');
         }
       });
   };
@@ -146,7 +164,7 @@ export default function Login() {
               />
               <button
                 className={styles.signinBtn}
-                onChange={() => handleConnection()}
+                onClick={() => handleConnection()}
               >Sign in</button>
             </div>
           </div>)}

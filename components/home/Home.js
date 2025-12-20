@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../reducers/user'
 import styles from './Home.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons';
@@ -12,11 +14,14 @@ function Home() {
   const [postsData, setPostsData] = useState([])
   console.log(postsData);
 
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+
   const fetchPosts = async () => {
     const res = await fetch('http://localhost:3000/posts/all', {
       method: 'GET',
       headers: {
-        'token': 'x',
+        'token': user.token,
       }
     });
     const data = await res.json();
@@ -25,9 +30,15 @@ function Home() {
   };
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    if (user.token) {
+      fetchPosts();
+    }
+  }, [user.token]);
 
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   const postsElement = postsData.map((data, i) => {
     return (<LastTweets
@@ -45,11 +56,14 @@ function Home() {
           <div className={styles.userInfo}>
             <Image src="/user-icon.jpg" alt="user-image" width={40} height={40} className={styles.userImage} />
             <div className={styles.userDetails}>
-              <p className={styles.username}>John</p>
-              <small className={styles.small}>@JohnCena</small>
+              <p className={styles.username}>{user.firstname}</p>
+              <small className={styles.small}>@{user.username}</small>
             </div>
           </div>
-          <button className={styles.logoutBtn}>Logout</button>
+          <button
+            className={styles.logoutBtn}
+            onClick={handleLogout}
+          >Logout</button>
         </div>
       </div>
 

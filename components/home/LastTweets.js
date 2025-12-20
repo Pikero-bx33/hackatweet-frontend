@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import styles from './LastTweets.module.css';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +8,10 @@ import { faHeart, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 export default function LastTweets(props) {
   const [isLiked, setIsLiked] = useState(props.isLiking);
+  const [likesCount, setLikesCount] = useState(props.likesCount);
+  console.log(likesCount, typeof props.likesCount);
+
+  const user = useSelector((state) => state.user.value);
 
   function timeAgo(date) {
     const now = new Date();
@@ -29,7 +34,7 @@ export default function LastTweets(props) {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        token: 'x',
+        token: user.token,
         postId: props._id,
       }),
     });
@@ -39,22 +44,33 @@ export default function LastTweets(props) {
 
   const handleClickLike = async () => {
     const newLikeState = !isLiked;
-    setIsLiked(newLikeState);
+    //setIsLiked(newLikeState);
+
+
+    console.log(newLikeState);
+
 
     const res = await fetch('http://localhost:3000/posts', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        token: 'x',
+        token: user.token,
         postId: props._id,
         isLiked: newLikeState,
       }),
     });
 
     const data = await res.json();
+    console.log(data);
+
+    if (data.result) {
+      setIsLiked(data.isLiking);
+      setLikesCount(data.likesCount)
+    }
 
     if (!data.result) {
       setIsLiked(!newLikeState);
+
     }
   };
 
@@ -81,7 +97,7 @@ export default function LastTweets(props) {
             className={styles.heartIcon}
             onClick={handleClickLike}
           />
-          <span className={styles.heartCount}>0</span>
+          <span className={styles.heartCount}>{likesCount}</span>
         </div>
         {props.isOwner && <div>
           <FontAwesomeIcon
